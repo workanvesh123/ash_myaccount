@@ -1,0 +1,141 @@
+<div class="profile-container">
+  @if (isLoading()) {
+    <div class="loading">Loading profile...</div>
+  } @else if (profile()) {
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-header-content">
+          <div class="avatar-section">
+            <app-avatar 
+              [src]="avatarService.avatar()" 
+              [initials]="userInitials()"
+              size="large"
+            />
+            <div class="avatar-actions">
+              <input 
+                type="file" 
+                id="avatarInput" 
+                accept="image/*" 
+                (change)="onAvatarFileSelected($event)"
+                hidden
+              />
+              <label for="avatarInput" class="btn-avatar-upload" [class.disabled]="isUploadingAvatar()">
+                @if (isUploadingAvatar()) {
+                  <span>Uploading...</span>
+                } @else {
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M3 9h18v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke-width="2"/>
+                    <path d="M3 9l9-7 9 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span>Upload</span>
+                }
+              </label>
+              @if (avatarService.avatar()) {
+                <button class="btn-avatar-remove" (click)="removeAvatar()">Remove</button>
+              }
+            </div>
+          </div>
+          <div class="profile-title">
+            <h1>{{ profile()!.firstName }} {{ profile()!.lastName }}</h1>
+            <p class="profile-email">{{ profile()!.email }}</p>
+          </div>
+        </div>
+        <button class="btn-primary" (click)="navigateToEdit()">
+          Edit Profile
+        </button>
+      </div>
+
+      <div class="profile-section">
+        <h2>Personal Information</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">First Name:</span>
+            <span class="value">{{ profile()!.firstName }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Last Name:</span>
+            <span class="value">{{ profile()!.lastName }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Email:</span>
+            <span class="value">{{ profile()!.email }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Phone:</span>
+            <span class="value">{{ profile()!.phone }}</span>
+          </div>
+          @if (profile()!.dateOfBirth) {
+            <div class="info-item">
+              <span class="label">Date of Birth:</span>
+              <span class="value">{{ profile()!.dateOfBirth | date }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      @if (profile()!.address) {
+        <div class="profile-section">
+          <h2>Address</h2>
+          <div class="info-grid">
+            <div class="info-item full-width">
+              <span class="label">Street:</span>
+              <span class="value">{{ profile()!.address!.street }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">City:</span>
+              <span class="value">{{ profile()!.address!.city }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">State:</span>
+              <span class="value">{{ profile()!.address!.state }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Zip Code:</span>
+              <span class="value">{{ profile()!.address!.zipCode }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Country:</span>
+              <span class="value">{{ profile()!.address!.country }}</span>
+            </div>
+          </div>
+        </div>
+      }
+
+      <div class="profile-section">
+        <h2>Security</h2>
+        <div class="security-item">
+          <div class="security-info">
+            <span class="label">Two-Factor Authentication:</span>
+            <span class="status" [class.enabled]="profile()!.twoFactorEnabled">
+              {{ profile()!.twoFactorEnabled ? 'Enabled' : 'Disabled' }}
+            </span>
+          </div>
+          <button class="btn-secondary" (click)="navigateTo2FA()">
+            {{ profile()!.twoFactorEnabled ? 'Manage 2FA' : 'Enable 2FA' }}
+          </button>
+        </div>
+        <div class="security-item">
+          <div class="security-info">
+            <span class="label">Password:</span>
+            <span class="value">••••••••</span>
+          </div>
+          <button class="btn-secondary" (click)="navigateToChangePassword()">
+            Change Password
+          </button>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <a routerLink="/en/myaccount/documents" class="btn-link">
+          View Documents
+        </a>
+        <a routerLink="/en/myaccount/activity" class="btn-link">
+          Activity Log
+        </a>
+        <a routerLink="/en/myaccount/sessions" class="btn-link">
+          Manage Sessions
+        </a>
+      </div>
+    </div>
+  }
+</div>

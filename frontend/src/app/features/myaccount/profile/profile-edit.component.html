@@ -1,0 +1,121 @@
+<div class="edit-container">
+  @if (isLoading()) {
+    <div class="loading">Loading profile...</div>
+  } @else {
+    <div class="edit-card">
+      <div class="edit-header">
+        <h1>Edit Profile</h1>
+      </div>
+
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name *</label>
+            <input
+              id="firstName"
+              type="text"
+              formControlName="firstName"
+              placeholder="Enter first name"
+              [class.error]="profileForm.controls.firstName.invalid && profileForm.controls.firstName.touched"
+            />
+            @if (profileForm.controls.firstName.invalid && profileForm.controls.firstName.touched) {
+              <span class="error-message">
+                @if (profileForm.controls.firstName.errors?.['required']) {
+                  First name is required
+                }
+                @if (profileForm.controls.firstName.errors?.['minlength']) {
+                  First name must be at least 2 characters
+                }
+              </span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">Last Name *</label>
+            <input
+              id="lastName"
+              type="text"
+              formControlName="lastName"
+              placeholder="Enter last name"
+              [class.error]="profileForm.controls.lastName.invalid && profileForm.controls.lastName.touched"
+            />
+            @if (profileForm.controls.lastName.invalid && profileForm.controls.lastName.touched) {
+              <span class="error-message">
+                @if (profileForm.controls.lastName.errors?.['required']) {
+                  Last name is required
+                }
+                @if (profileForm.controls.lastName.errors?.['minlength']) {
+                  Last name must be at least 2 characters
+                }
+              </span>
+            }
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="Enter email address"
+            [class.error]="profileForm.controls.email.invalid && profileForm.controls.email.touched"
+          />
+          @if (profileForm.controls.email.invalid && profileForm.controls.email.touched) {
+            <span class="error-message">
+              @if (profileForm.controls.email.errors?.['required']) {
+                Email is required
+              }
+              @if (profileForm.controls.email.errors?.['email']) {
+                Please enter a valid email address
+              }
+            </span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone *</label>
+          <input
+            id="phone"
+            type="tel"
+            formControlName="phone"
+            placeholder="Enter phone number"
+            [class.error]="profileForm.controls.phone.invalid && profileForm.controls.phone.touched"
+          />
+          @if (profileForm.controls.phone.invalid && profileForm.controls.phone.touched) {
+            <span class="error-message">
+              @if (profileForm.controls.phone.errors?.['required']) {
+                Phone is required
+              }
+              @if (profileForm.controls.phone.errors?.['pattern']) {
+                Please enter a valid phone number
+              }
+            </span>
+          }
+        </div>
+
+        <div class="form-actions">
+          <button 
+            type="button" 
+            class="btn-secondary"
+            (click)="cancel()"
+            [disabled]="isSaving()"
+          >
+            Cancel
+          </button>
+          <button 
+            type="submit" 
+            class="btn-primary"
+            [disabled]="isSaving() || profileForm.invalid"
+          >
+            @if (isSaving()) {
+              <span>Saving...</span>
+            } @else {
+              <span>Save Changes</span>
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+</div>

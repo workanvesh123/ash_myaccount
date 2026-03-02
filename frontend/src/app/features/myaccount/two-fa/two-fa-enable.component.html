@@ -1,0 +1,115 @@
+<div class="two-fa-container">
+  <div class="two-fa-card">
+    <div class="two-fa-header">
+      <h1>Two-Factor Authentication</h1>
+    </div>
+
+    @if (twoFactorEnabled()) {
+      <div class="two-fa-content">
+        <div class="status-badge enabled">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>2FA is currently enabled</span>
+        </div>
+
+        <p class="info-text">
+          Your account is protected with Two-Factor Authentication. You'll need to enter a verification code each time you log in.
+        </p>
+
+        <div class="actions">
+          <button 
+            class="btn-danger"
+            (click)="disable2FA()"
+            [disabled]="isDisabling()"
+          >
+            @if (isDisabling()) {
+              <span>Disabling...</span>
+            } @else {
+              <span>Disable 2FA</span>
+            }
+          </button>
+          <button class="btn-secondary" (click)="cancel()">
+            Back to Profile
+          </button>
+        </div>
+      </div>
+    } @else {
+      <div class="two-fa-content">
+        @if (!otpSent()) {
+          <div class="info-section">
+            <p class="info-text">
+              Add an extra layer of security to your account. When enabled, you'll need to enter a verification code in addition to your password when logging in.
+            </p>
+
+            <div class="benefits">
+              <h3>Benefits:</h3>
+              <ul>
+                <li>Enhanced account security</li>
+                <li>Protection against unauthorized access</li>
+                <li>Peace of mind for sensitive operations</li>
+              </ul>
+            </div>
+
+            <div class="actions">
+              <button 
+                class="btn-primary"
+                (click)="sendOTP()"
+                [disabled]="isLoading()"
+              >
+                @if (isLoading()) {
+                  <span>Sending OTP...</span>
+                } @else {
+                  <span>Enable 2FA</span>
+                }
+              </button>
+              <button class="btn-secondary" (click)="cancel()">
+                Cancel
+              </button>
+            </div>
+          </div>
+        } @else {
+          <div class="verify-section">
+            <p class="info-text">
+              We've sent a 6-digit verification code to your email. Please check your console/email and enter the code below.
+            </p>
+
+            <div class="otp-input-container">
+              <label for="otpCode">Verification Code</label>
+              <input
+                id="otpCode"
+                type="text"
+                maxlength="6"
+                placeholder="Enter 6-digit code"
+                [value]="otpCode()"
+                (input)="updateOtpCode($any($event.target).value)"
+                class="otp-input"
+              />
+            </div>
+
+            <div class="actions">
+              <button 
+                class="btn-primary"
+                (click)="verifyOTP()"
+                [disabled]="isVerifying() || otpCode().length !== 6"
+              >
+                @if (isVerifying()) {
+                  <span>Verifying...</span>
+                } @else {
+                  <span>Verify & Enable</span>
+                }
+              </button>
+              <button 
+                class="btn-secondary" 
+                (click)="sendOTP()"
+                [disabled]="isLoading()"
+              >
+                Resend Code
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

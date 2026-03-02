@@ -1,0 +1,89 @@
+<div class="sessions-container">
+  <div class="sessions-header">
+    <div>
+      <h1>Active Sessions</h1>
+      <p class="subtitle">Manage devices where you're logged in</p>
+    </div>
+    <button 
+      class="btn-danger" 
+      (click)="revokeAllSessions()"
+      [disabled]="revokingAll() || sessions().length === 0"
+    >
+      @if (revokingAll()) {
+        <span>Revoking...</span>
+      } @else {
+        <span>Logout All Devices</span>
+      }
+    </button>
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading">Loading sessions...</div>
+  } @else if (sessions().length === 0) {
+    <div class="empty-state">
+      <p>No active sessions found</p>
+    </div>
+  } @else {
+    <div class="sessions-list">
+      @for (session of sessions(); track session.sessionId) {
+        <div class="session-card" [class.current-session]="session.isCurrent">
+          @if (session.isCurrent) {
+            <div class="current-badge">Current Session</div>
+          }
+          
+          <div class="session-header">
+            <div class="session-device">
+              <span class="device-icon">{{ getDeviceIcon(session.deviceName) }}</span>
+              <div class="device-info">
+                <h3>{{ session.deviceName }}</h3>
+                <div class="device-details">
+                  <span class="detail">
+                    {{ getBrowserIcon(session.browser) }} {{ session.browser }}
+                  </span>
+                  <span class="detail">
+                    {{ getOSIcon(session.operatingSystem) }} {{ session.operatingSystem }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="session-info">
+            <div class="info-row">
+              <span class="label">IP Address:</span>
+              <span class="value">{{ session.ipAddress }}</span>
+            </div>
+            @if (session.location) {
+              <div class="info-row">
+                <span class="label">Location:</span>
+                <span class="value">{{ session.location }}</span>
+              </div>
+            }
+            <div class="info-row">
+              <span class="label">Last Active:</span>
+              <span class="value">{{ getTimeSince(session.lastActivityAt) }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Created:</span>
+              <span class="value">{{ session.createdAt | date:'medium' }}</span>
+            </div>
+          </div>
+
+          <div class="session-actions">
+            <button 
+              class="btn-revoke" 
+              (click)="revokeSession(session.sessionId, session.isCurrent)"
+              [disabled]="revokingSessionId() === session.sessionId"
+            >
+              @if (revokingSessionId() === session.sessionId) {
+                <span>Revoking...</span>
+              } @else {
+                <span>{{ session.isCurrent ? 'Logout' : 'Revoke Session' }}</span>
+              }
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

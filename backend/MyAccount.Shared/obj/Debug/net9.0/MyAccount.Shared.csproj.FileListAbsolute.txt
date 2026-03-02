@@ -1,0 +1,13 @@
+C:\monorepos\newmonorepomyaccount\ash_myaccount\backend\MyAccount.Shared\obj\Debug\net9.0\MyAccount.Shared.csproj.AssemblyReference.cache
+C:\monorepos\newmonorepomyaccount\ash_myaccount\backend\MyAccount.Shared\obj\Debug\net9.0\MyAccount.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\monorepos\newmonorepomyaccount\ash_myaccount\backend\MyAccount.Shared\obj\Debug\net9.0\MyAccount.Shared.AssemblyInfoInputs.cache
+C:\monorepos\newmonorepomyaccount\ash_myaccount\backend\MyAccount.Shared\obj\Debug\net9.0\MyAccount.Shared.AssemblyInfo.cs
+C:\monorepos\newmonorepomyaccount\ash_myaccount\backend\MyAccount.Shared\obj\Debug\net9.0\MyAccount.Shared.csproj.CoreCompileInputs.cache
+C:\monorepos\newmonorepomyaccount\ash_myaccount\backend\MyAccount.Shared\obj\Debug\net9.0\MyAccount.Shared.sourcelink.json
+C:\monorepos\newmonorepomyaccount\ash_myaccount\backend\MyAccount.Shared\bin\Debug\net9.0\MyAccount.Shared.deps.json
+C:\monorepos\newmonorepomyaccount\ash_myaccount\backend\MyAccount.Shared\bin\Debug\net9.0\MyAccount.Shared.dll
+C:\monorepos\newmonorepomyaccount\ash_myaccount\backend\MyAccount.Shared\bin\Debug\net9.0\MyAccount.Shared.pdb
+C:\monorepos\newmonorepomyaccount\ash_myaccount\backend\MyAccount.Shared\obj\Debug\net9.0\MyAccount.Shared.dll
+C:\monorepos\newmonorepomyaccount\ash_myaccount\backend\MyAccount.Shared\obj\Debug\net9.0\refint\MyAccount.Shared.dll
+C:\monorepos\newmonorepomyaccount\ash_myaccount\backend\MyAccount.Shared\obj\Debug\net9.0\MyAccount.Shared.pdb
+C:\monorepos\newmonorepomyaccount\ash_myaccount\backend\MyAccount.Shared\obj\Debug\net9.0\ref\MyAccount.Shared.dll

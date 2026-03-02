@@ -1,0 +1,82 @@
+<div class="activity-log-container">
+  <div class="activity-log-header">
+    <h1>Activity Log</h1>
+    <p class="subtitle">Track all actions on your account</p>
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading">Loading activity log...</div>
+  } @else if (activities().length === 0) {
+    <div class="empty-state">
+      <p>No activity recorded yet</p>
+    </div>
+  } @else {
+    <div class="activity-list">
+      @for (activity of activities(); track activity.id) {
+        <div class="activity-item" [class]="getActivityClass(activity.activityType)">
+          <div class="activity-icon">{{ getActivityIcon(activity.activityType) }}</div>
+          <div class="activity-content">
+            <div class="activity-header">
+              <span class="activity-type">{{ activity.activityType }}</span>
+              <span class="activity-time">{{ activity.timestamp | date:'short' }}</span>
+            </div>
+            <p class="activity-description">{{ activity.description }}</p>
+            @if (activity.ipAddress || activity.device || activity.browser) {
+              <div class="activity-details">
+                @if (activity.ipAddress) {
+                  <span class="detail-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                      <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" stroke-width="2"/>
+                    </svg>
+                    {{ activity.ipAddress }}
+                  </span>
+                }
+                @if (activity.device) {
+                  <span class="detail-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <rect x="5" y="2" width="14" height="20" rx="2" stroke-width="2"/>
+                      <path d="M12 18h.01" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    {{ activity.device }}
+                  </span>
+                }
+                @if (activity.browser) {
+                  <span class="detail-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                      <path d="M12 16v-4M12 8h.01" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    {{ activity.browser }}
+                  </span>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    @if (totalPages() > 1) {
+      <div class="pagination">
+        <button 
+          class="btn-pagination" 
+          (click)="previousPage()" 
+          [disabled]="currentPage() === 1"
+        >
+          Previous
+        </button>
+        <span class="page-info">
+          Page {{ currentPage() }} of {{ totalPages() }} ({{ totalCount() }} total)
+        </span>
+        <button 
+          class="btn-pagination" 
+          (click)="nextPage()" 
+          [disabled]="currentPage() === totalPages()"
+        >
+          Next
+        </button>
+      </div>
+    }
+  }
+</div>

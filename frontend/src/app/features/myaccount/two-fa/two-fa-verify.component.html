@@ -1,0 +1,62 @@
+<div class="verify-container">
+  <div class="verify-card">
+    <div class="verify-header">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="icon">
+        <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h1>Two-Factor Authentication Required</h1>
+      <p class="subtitle">Enter the verification code to complete your login</p>
+    </div>
+
+    <div class="verify-content">
+      <p class="info-text">
+        A 6-digit verification code has been sent to your registered email. Please check your console/email and enter the code below.
+      </p>
+
+      @if (errorCode() === 118) {
+        <div class="alert alert-info">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>2FA verification is required for your account</span>
+        </div>
+      }
+
+      <div class="otp-input-container">
+        <label for="otpCode">Verification Code</label>
+        <input
+          id="otpCode"
+          type="text"
+          maxlength="6"
+          placeholder="000000"
+          [value]="otpCode()"
+          (input)="updateOtpCode($any($event.target).value)"
+          (keyup.enter)="verifyOTP()"
+          class="otp-input"
+          autofocus
+        />
+        <span class="helper-text">Enter the 6-digit code from your email</span>
+      </div>
+
+      <div class="actions">
+        <button 
+          class="btn-primary"
+          (click)="verifyOTP()"
+          [disabled]="isVerifying() || otpCode().length !== 6"
+        >
+          @if (isVerifying()) {
+            <span>Verifying...</span>
+          } @else {
+            <span>Verify & Continue</span>
+          }
+        </button>
+      </div>
+
+      <div class="footer-actions">
+        <button class="btn-link" (click)="cancel()">
+          Cancel & Return to Login
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="AppHost/AppHost.csproj" />
+  <Project Path="MyAccount.Api/MyAccount.Api.csproj" />
+  <Project Path="MyAccount.Shared/MyAccount.Shared.csproj" />
+</Solution>

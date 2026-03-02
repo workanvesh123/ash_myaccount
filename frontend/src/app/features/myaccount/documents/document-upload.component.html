@@ -1,0 +1,114 @@
+<div class="upload-container">
+  <div class="upload-card">
+    <div class="upload-header">
+      <h1>Upload Document</h1>
+    </div>
+
+    <div class="upload-content">
+      <div class="document-type-selector">
+        <label>Document Type:</label>
+        <div class="type-buttons">
+          <button
+            type="button"
+            class="type-btn"
+            [class.active]="documentType() === 'id'"
+            (click)="setDocumentType('id')"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            ID Document
+          </button>
+          <button
+            type="button"
+            class="type-btn"
+            [class.active]="documentType() === 'proof_of_address'"
+            (click)="setDocumentType('proof_of_address')"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Proof of Address
+          </button>
+        </div>
+      </div>
+
+      @if (!selectedFile()) {
+        <div class="file-drop-zone">
+          <input
+            type="file"
+            id="fileInput"
+            accept=".pdf,.jpg,.jpeg,.png"
+            (change)="onFileSelected($event)"
+            hidden
+          />
+          <label for="fileInput" class="drop-zone-label">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="drop-zone-text">Click to select a file</span>
+            <span class="drop-zone-hint">or drag and drop</span>
+            <span class="drop-zone-formats">PDF, JPG, PNG (max 5MB)</span>
+          </label>
+        </div>
+      } @else {
+        <div class="file-preview">
+          @if (previewUrl()) {
+            <img [src]="previewUrl()!" alt="Preview" class="preview-image" />
+          } @else {
+            <div class="pdf-icon">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>PDF</span>
+            </div>
+          }
+
+          <div class="file-info">
+            <h3>{{ selectedFile()!.name }}</h3>
+            <p>{{ formatFileSize(selectedFile()!.size) }}</p>
+            <button type="button" class="btn-remove" (click)="removeFile()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Remove
+            </button>
+          </div>
+        </div>
+      }
+
+      <div class="upload-info">
+        <h3>Requirements:</h3>
+        <ul>
+          <li>File must be in PDF, JPG, or PNG format</li>
+          <li>Maximum file size is 5MB</li>
+          <li>Document must be clear and readable</li>
+          <li>All information must be visible</li>
+        </ul>
+      </div>
+
+      <div class="upload-actions">
+        <button
+          type="button"
+          class="btn-secondary"
+          (click)="cancel()"
+          [disabled]="isUploading()"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn-primary"
+          (click)="uploadDocument()"
+          [disabled]="!selectedFile() || isUploading()"
+        >
+          @if (isUploading()) {
+            <span>Uploading...</span>
+          } @else {
+            <span>Upload Document</span>
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,161 @@
+<div class="sudoku-game">
+  <!-- Settings Panel -->
+  @if (showSettings()) {
+    <div class="settings-panel">
+      <h2>🔢 Sudoku</h2>
+      <p class="description">Fill the 9×9 grid so that each row, column, and 3×3 box contains digits 1-9</p>
+      
+      <div class="settings-group">
+        <label>Difficulty</label>
+        <div class="difficulty-buttons">
+          <button 
+            class="difficulty-btn" 
+            [class.active]="difficulty() === 'Easy'"
+            (click)="difficulty.set('Easy')">
+            Easy
+          </button>
+          <button 
+            class="difficulty-btn" 
+            [class.active]="difficulty() === 'Medium'"
+            (click)="difficulty.set('Medium')">
+            Medium
+          </button>
+          <button 
+            class="difficulty-btn" 
+            [class.active]="difficulty() === 'Hard'"
+            (click)="difficulty.set('Hard')">
+            Hard
+          </button>
+          <button 
+            class="difficulty-btn" 
+            [class.active]="difficulty() === 'Expert'"
+            (click)="difficulty.set('Expert')">
+            Expert
+          </button>
+        </div>
+      </div>
+      
+      <button class="start-btn" (click)="startGame()">
+        Start Game
+      </button>
+    </div>
+  }
+  
+  <!-- Game Board -->
+  @if (isStarted() && !isCompleted()) {
+    <div class="game-container">
+      <!-- Header Stats -->
+      <div class="game-header">
+        <div class="stat">
+          <span class="stat-label">⏱️ Time</span>
+          <span class="stat-value">{{ formatTime(elapsedTime()) }}</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">❌ Mistakes</span>
+          <span class="stat-value">{{ mistakes() }}</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">💡 Hints</span>
+          <span class="stat-value">{{ hintsRemaining() }}/{{ maxHints }}</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">📊 Progress</span>
+          <span class="stat-value">{{ progress() }}%</span>
+        </div>
+      </div>
+      
+      <!-- Sudoku Grid -->
+      <div class="sudoku-grid">
+        @for (row of getGridNumbers(); track row) {
+          @for (col of getGridNumbers(); track col) {
+            @let cellIndex = (row - 1) * 9 + (col - 1);
+            @let cell = cells()[cellIndex];
+            @if (cell) {
+              <div 
+                [class]="getCellClass(cell)"
+                (click)="selectCell(cell.row, cell.col)">
+                @if (getCellValue(cell)) {
+                  <span class="cell-value">{{ getCellValue(cell) }}</span>
+                } @else if (cell.notes.length > 0) {
+                  <div class="notes">
+                    @for (note of cell.notes; track note) {
+                      <span class="note">{{ note }}</span>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          }
+        }
+      </div>
+      
+      <!-- Number Pad -->
+      <div class="number-pad">
+        <div class="number-buttons">
+          @for (num of getGridNumbers(); track num) {
+            <button 
+              class="number-btn"
+              (click)="setNumber(num)">
+              {{ num }}
+            </button>
+          }
+        </div>
+      </div>
+      
+      <!-- Controls -->
+      <div class="controls">
+        <button class="control-btn" (click)="toggleNoteMode()" [class.active]="noteMode()">
+          ✏️ Notes
+        </button>
+        <button class="control-btn" (click)="clearCell()">
+          🗑️ Clear
+        </button>
+        <button class="control-btn" (click)="getHint()" [disabled]="hintsRemaining() === 0">
+          💡 Hint ({{ hintsRemaining() }})
+        </button>
+        <button class="control-btn secondary" (click)="restartGame()">
+          🔄 Restart
+        </button>
+        <button class="control-btn secondary" (click)="backToLobby()">
+          ← Lobby
+        </button>
+      </div>
+    </div>
+  }
+  
+  <!-- Completion Modal -->
+  @if (isCompleted()) {
+    <div class="modal-overlay" (click)="restartGame()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-icon">🎉</div>
+        <h2>Puzzle Solved!</h2>
+        <div class="modal-stats">
+          <div class="modal-stat">
+            <span class="label">Time</span>
+            <span class="value">{{ formatTime(elapsedTime()) }}</span>
+          </div>
+          <div class="modal-stat">
+            <span class="label">Mistakes</span>
+            <span class="value">{{ mistakes() }}</span>
+          </div>
+          <div class="modal-stat">
+            <span class="label">Hints Used</span>
+            <span class="value">{{ hintsUsed() }}/{{ maxHints }}</span>
+          </div>
+          <div class="modal-stat">
+            <span class="label">Difficulty</span>
+            <span class="value">{{ difficulty() }}</span>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="modal-btn primary" (click)="restartGame()">
+            Play Again
+          </button>
+          <button class="modal-btn secondary" (click)="backToLobby()">
+            Back to Lobby
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

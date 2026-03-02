@@ -1,0 +1,136 @@
+<div class="memory-match">
+  <div class="game-header">
+    <button class="back-btn" (click)="backToLobby()">
+      ← Back to Lobby
+    </button>
+    <h1>🃏 Memory Match</h1>
+  </div>
+
+  @if (showSettings()) {
+    <div class="settings-panel">
+      <h2>Game Settings</h2>
+      
+      <div class="setting-group">
+        <label>Difficulty</label>
+        <div class="button-group">
+          <button 
+            [class.active]="difficulty() === 'Easy'"
+            (click)="difficulty.set('Easy')">
+            Easy (4x4)
+          </button>
+          <button 
+            [class.active]="difficulty() === 'Medium'"
+            (click)="difficulty.set('Medium')">
+            Medium (6x6)
+          </button>
+          <button 
+            [class.active]="difficulty() === 'Hard'"
+            (click)="difficulty.set('Hard')">
+            Hard (8x8)
+          </button>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <label>Theme</label>
+        <div class="button-group">
+          <button 
+            [class.active]="theme() === 'Animals'"
+            (click)="theme.set('Animals')">
+            🐶 Animals
+          </button>
+          <button 
+            [class.active]="theme() === 'Emojis'"
+            (click)="theme.set('Emojis')">
+            😀 Emojis
+          </button>
+          <button 
+            [class.active]="theme() === 'Flags'"
+            (click)="theme.set('Flags')">
+            🇺🇸 Flags
+          </button>
+          <button 
+            [class.active]="theme() === 'Food'"
+            (click)="theme.set('Food')">
+            🍕 Food
+          </button>
+        </div>
+      </div>
+
+      <button class="start-btn" (click)="startGame()">
+        Start Game
+      </button>
+    </div>
+  }
+
+  @if (isStarted() && !isCompleted()) {
+    <div class="game-stats">
+      <div class="stat">
+        <span class="stat-label">Time</span>
+        <span class="stat-value">⏱️ {{ formatTime(elapsedTime()) }}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Moves</span>
+        <span class="stat-value">🎯 {{ moves() }}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Progress</span>
+        <span class="stat-value">📊 {{ progress() }}%</span>
+      </div>
+    </div>
+
+    <div class="game-board" [attr.data-size]="gridSize()">
+      @for (card of cards(); track card.id) {
+        <div 
+          class="card"
+          [class.flipped]="card.isFlipped || card.isMatched"
+          [class.matched]="card.isMatched"
+          (click)="flipCard(card)">
+          <div class="card-inner">
+            <div class="card-front">?</div>
+            <div class="card-back">{{ card.icon }}</div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="game-controls">
+      <button class="control-btn" (click)="restartGame()">
+        🔄 Restart
+      </button>
+    </div>
+  }
+
+  @if (isCompleted()) {
+    <div class="completion-modal">
+      <div class="modal-content">
+        <h2>🎉 Congratulations!</h2>
+        <p>You completed the game!</p>
+        
+        <div class="final-stats">
+          <div class="final-stat">
+            <span class="label">Time:</span>
+            <span class="value">{{ formatTime(elapsedTime()) }}</span>
+          </div>
+          <div class="final-stat">
+            <span class="label">Moves:</span>
+            <span class="value">{{ moves() }}</span>
+          </div>
+          <div class="final-stat">
+            <span class="label">Pairs:</span>
+            <span class="value">{{ totalPairs() }}</span>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="primary-btn" (click)="restartGame()">
+            Play Again
+          </button>
+          <button class="secondary-btn" (click)="backToLobby()">
+            Back to Lobby
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,128 @@
+<div class="game-2048-container">
+  <!-- Header -->
+  <div class="game-header">
+    <button class="back-button" (click)="backToLobby()">
+      ← Back to Games
+    </button>
+    <h1 class="game-title">2048</h1>
+  </div>
+
+  <!-- Instructions -->
+  @if (showInstructions()) {
+    <div class="instructions">
+      <div class="instructions-content">
+        <h2>How to Play</h2>
+        <p>Use arrow keys to move tiles. When two tiles with the same number touch, they merge into one!</p>
+        <ul>
+          <li>🎯 Goal: Reach the 2048 tile</li>
+          <li>⌨️ Arrow Keys: Move tiles</li>
+          <li>↩️ U Key: Undo (max 3)</li>
+        </ul>
+        <button class="start-button" (click)="startGame()">
+          Start Game
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- Game Board -->
+  @if (isStarted()) {
+    <div class="game-board">
+      <!-- Score Panel -->
+      <div class="score-panel">
+        <div class="score-box">
+          <div class="score-label">Score</div>
+          <div class="score-value">{{ score() }}</div>
+        </div>
+        <div class="score-box best">
+          <div class="score-label">Best</div>
+          <div class="score-value">{{ bestScore() }}</div>
+        </div>
+        <div class="timer-box">
+          <div class="timer-label">Time</div>
+          <div class="timer-value">{{ formatTime(elapsedTime()) }}</div>
+        </div>
+      </div>
+
+      <!-- Grid -->
+      <div class="grid-container">
+        <div class="grid">
+          @for (row of grid(); track $index) {
+            <div class="grid-row">
+              @for (cell of row; track $index) {
+                <div [class]="getTileClass(cell)">
+                  <span class="tile-value">{{ getTileValue(cell) }}</span>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="controls">
+        <button 
+          class="control-button undo" 
+          (click)="undo()"
+          [disabled]="!canUndo()">
+          ↩️ Undo ({{ undoCount() }}/{{ maxUndos }})
+        </button>
+        <button class="control-button restart" (click)="restartGame()">
+          🔄 New Game
+        </button>
+      </div>
+
+      <!-- Keyboard Hint -->
+      <div class="keyboard-hint">
+        Use arrow keys to play • Press U to undo
+      </div>
+    </div>
+  }
+
+  <!-- Win Modal -->
+  @if (won() && !gameOver()) {
+    <div class="modal-overlay">
+      <div class="modal win-modal">
+        <h2>🎉 You Win!</h2>
+        <p>You reached the 2048 tile!</p>
+        <div class="modal-score">
+          <div>Score: {{ score() }}</div>
+          <div>Time: {{ formatTime(elapsedTime()) }}</div>
+        </div>
+        <div class="modal-buttons">
+          <button class="modal-button continue" (click)="continueAfterWin()">
+            Keep Playing
+          </button>
+          <button class="modal-button restart" (click)="restartGame()">
+            New Game
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Game Over Modal -->
+  @if (gameOver()) {
+    <div class="modal-overlay">
+      <div class="modal game-over-modal">
+        <h2>Game Over</h2>
+        <p>No more moves available!</p>
+        <div class="modal-score">
+          <div>Final Score: {{ score() }}</div>
+          <div>Time: {{ formatTime(elapsedTime()) }}</div>
+          @if (score() === bestScore()) {
+            <div class="new-best">🏆 New Best Score!</div>
+          }
+        </div>
+        <div class="modal-buttons">
+          <button class="modal-button restart" (click)="restartGame()">
+            Try Again
+          </button>
+          <button class="modal-button back" (click)="backToLobby()">
+            Back to Lobby
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>
