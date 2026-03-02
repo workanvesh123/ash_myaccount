@@ -1,0 +1,109 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Phase 02 - Component Location Discovery",
+    "description": "Schema for component location search, parent identification, and component chain analysis",
+    "type": "object",
+    "required": ["component", "discovery", "metadata"],
+    "properties": {
+        "component": {
+            "type": "object",
+            "required": ["name", "selector", "package", "library"],
+            "properties": {
+                "name": { "type": "string", "minLength": 1 },
+                "selector": { "type": "string", "minLength": 1 },
+                "package": { "type": "string", "minLength": 1 },
+                "library": { "type": "string", "minLength": 1 }
+            }
+        },
+        "discovery": {
+            "type": "object",
+            "required": ["componentLocation", "searchAttempts", "accessMethod"],
+            "properties": {
+                "componentLocation": {
+                    "type": "string",
+                    "enum": ["route", "template", "shared", "dialog", "dynamic", "unused"]
+                },
+                "searchAttempts": {
+                    "type": "object",
+                    "required": ["routes", "templates"],
+                    "properties": {
+                        "routes": {
+                            "type": "object",
+                            "required": ["searched", "query", "includePattern", "result"],
+                            "properties": {
+                                "searched": { "type": "boolean" },
+                                "query": { "type": "string" },
+                                "includePattern": { "type": "string" },
+                                "result": { "type": "string" }
+                            }
+                        },
+                        "templates": {
+                            "type": "object",
+                            "required": ["searched", "query", "includePattern", "result"],
+                            "properties": {
+                                "searched": { "type": "boolean" },
+                                "query": { "type": "string" },
+                                "includePattern": { "type": "string" },
+                                "result": { "type": "string" }
+                            }
+                        },
+                        "shared": {
+                            "type": "object",
+                            "properties": {
+                                "searched": { "type": "boolean" },
+                                "query": { "type": "string" },
+                                "includePattern": { "type": "string" },
+                                "result": { "type": "string" }
+                            }
+                        }
+                    }
+                },
+                "parentComponent": {
+                    "type": "object",
+                    "required": ["name", "selector", "source", "code"],
+                    "properties": {
+                        "name": { "type": "string", "minLength": 1 },
+                        "selector": { "type": "string", "minLength": 1 },
+                        "source": { "type": "string", "minLength": 1 },
+                        "code": { "type": "string", "minLength": 1 }
+                    }
+                },
+                "accessMethod": {
+                    "type": "string",
+                    "enum": ["template", "dialog", "dynamic", "route"]
+                },
+                "componentChain": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["level", "component", "selector", "source", "code"],
+                        "properties": {
+                            "level": { "type": "integer", "minimum": 1 },
+                            "component": { "type": "string", "minLength": 1 },
+                            "selector": { "type": "string", "minLength": 1 },
+                            "source": { "type": "string", "minLength": 1 },
+                            "code": { "type": "string", "minLength": 1 }
+                        }
+                    }
+                }
+            }
+        },
+        "metadata": {
+            "type": "object",
+            "required": ["analysisDate", "analysisPhase", "toolsExecuted", "filesAnalyzed"],
+            "properties": {
+                "analysisDate": { "type": "string", "format": "date" },
+                "analysisPhase": { "type": "string", "const": "Phase 02 - Component Location Discovery" },
+                "toolsExecuted": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "minItems": 1
+                },
+                "filesAnalyzed": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                }
+            }
+        }
+    }
+}

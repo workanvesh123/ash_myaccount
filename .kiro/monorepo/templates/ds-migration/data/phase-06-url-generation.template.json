@@ -1,0 +1,20 @@
+{
+    "component": {
+        "name": "",
+        "selector": "",
+        "package": "",
+        "library": ""
+    },
+    "developmentUrls": [],
+    "testingGuidance": {
+        "accessInstructions": [],
+        "featureFlagRequirements": [],
+        "visualLocation": ""
+    },
+    "metadata": {
+        "analysisDate": "",
+        "analysisPhase": "Phase 06 - URL Generation & Documentation",
+        "steeringFilesReferenced": [],
+        "filesAnalyzed": []
+    }
+}

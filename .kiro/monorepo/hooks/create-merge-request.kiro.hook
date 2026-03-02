@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "name": "[General] Create Merge Request",
+  "description": "When user asks to create a merge request, analyze branch changes using GitLab MCP, prepare a description, wait for confirmation, then create the MR",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "The user has requested to create a merge request. Follow these steps:\n\n1. Analyze the changes in current branch:\n   - Use `git --no-pager diff`\n   - Identify modified files and their purposes\n   - Summarize the key changes made\n   - Note any patterns (e.g., design system migration, bug fixes, new features)\n   - Check for test coverage changes\n   - Identify any configuration or documentation updates\n\n2. Prepare a merge request description that includes:\n   - A clear title summarizing the changes\n   - A concise description of what was changed and why\n   - List of modified files/components\n   - Any breaking changes or migration notes\n   - Testing notes if applicable\n   - Related JIRA tickets if found in branch name or commits\n\n3. Present the prepared information to the user and ask for confirmation or changes\n\n4. Once confirmed, use the gitlab-mcp `create_merge_request` tool to create the MR with:\n   - The approved title\n   - The approved description\n   - Source branch: current branch\n   - Target branch: specified by user or 'main'\n   - Any additional parameters the user requested\n\nRemember to use conventional commit format for the title and follow the project's MR conventions.  Remember to always use `git --no-pager diff` for diffing."
+  },
+  "workspaceFolderName": "monorepo",
+  "shortName": "create-merge-request"
+}

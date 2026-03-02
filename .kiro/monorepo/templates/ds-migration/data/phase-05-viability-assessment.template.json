@@ -1,0 +1,65 @@
+{
+    "component": {
+        "name": "",
+        "selector": "",
+        "package": "",
+        "library": ""
+    },
+    "sharedContext": {
+        "crossZoneDependencies": false,
+        "sharedProperties": [],
+        "sharedMethods": [],
+        "lifecycleHooks": [],
+        "reasoning": ""
+    },
+    "viabilityAssessment": {
+        "feasible": false,
+        "boundaryViolations": [],
+        "architecturalFitIndicators": {
+            "runtimeConfigurableStyling": false,
+            "complexStateMachine": false,
+            "multiBrandThemingWithExternalOverrides": false,
+            "noClearDsEquivalent": false,
+            "deviceSpecificImplementations": false,
+            "dualRoleComponent": false,
+            "criticalUserFlowWithZeroTolerance": false
+        },
+        "decision": "",
+        "reasoning": ""
+    },
+    "featureMapping": {
+        "requiredDsFeatures": [],
+        "gaps": [],
+        "workarounds": [],
+        "reasoning": ""
+    },
+    "riskAssessment": {
+        "level": "",
+        "justification": "",
+        "riskIndicators": {
+            "lowRiskIndicators": [],
+            "moderateRiskIndicators": [],
+            "highRiskIndicators": []
+        },
+        "mitigationStrategies": [],
+        "testingRequirements": {
+            "scope": "",
+            "dimensions": [],
+            "criticalPaths": []
+        }
+    },
+    "criticalConstraints": [],
+    "successCriteria": [],
+    "architectureSummary": {
+        "componentRole": "",
+        "integrationPoints": [],
+        "migrationApproach": "",
+        "preservedBehavior": []
+    },
+    "metadata": {
+        "analysisDate": "",
+        "analysisPhase": "Phase 05 - Viability, Gap Analysis & Risk Assessment",
+        "steeringFilesReferenced": [],
+        "filesAnalyzed": []
+    }
+}

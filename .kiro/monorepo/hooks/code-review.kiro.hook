@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "name": "Code Review",
+  "description": "Automatically performs a comprehensive code review when a file is saved, checking against Angular performance best practices, design system integration guidelines, and SSR compatibility requirements using the specified steering documents as references",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Review the changes in the changed files against the following steering documents:\n\n1. .kiro/steering/topics/angular-performance/performace-checklist.md\n2. .kiro/steering/topics/design-system/design-system-checklist.md\n3. .kiro/steering/topics/ssr/ssr-checklist.md\n4. .kiro/steering/topics/accessiblity/accessibility-checklist.md\n\nInclude these files as references in your analysis.\n\nPerform a thorough code review focusing on:\n- Angular performance patterns (change detection, signals, template optimization)\n- Design system integration compliance (component usage, theming, semantic tokens)\n- SSR compatibility (browser API usage, DOM manipulation, async operations)\n- Accessibility compliance\n\nProvide specific feedback on any violations or improvements needed, referencing the relevant checklist items."
+  },
+  "workspaceFolderName": "monorepo",
+  "shortName": "code-review"
+}

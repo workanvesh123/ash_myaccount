@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "name": "[Git] Merge Main Branch",
+  "description": "Automatically merge the latest main branch into the current branch with conflict detection and proper error handling. Stops if already on main or if conflicts are detected.",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "The user has requested to merge the main branch into the current branch. Follow these steps using the appropriate shell commands for the operating system:\n\n1. **Check Current Branch**:\n   - Run `git branch --show-current` to get the current branch name\n   - If the current branch is 'main', stop with message: \"❌ Already on main branch. Nothing to merge.\"\n   - Otherwise, display: \"📋 Current branch: [branch_name]\"\n\n2. **Fetch Latest Main**:\n   - Display: \"🔄 Fetching latest main from remote...\"\n   - Run `git fetch origin main`\n\n3. **Attempt Merge**:\n   - Display: \"🔀 Attempting to merge main into current branch...\"\n   - Run `git merge origin/main --no-commit`\n   - If the merge succeeds (no conflicts):\n     - Display: \"✅ Merge successful!\"\n     - Continue to step 4\n   - If the merge fails due to conflicts:\n     - Display: \"❌ MERGE CONFLICTS DETECTED!\"\n     - Run `git diff --name-only --diff-filter=U` to list conflicted files\n     - Display the list of files with conflicts\n     - Display: \"📝 Please manually resolve the conflicts in the files above.\"\n     - Display: \"💬 When you're done resolving conflicts, type 'done' to continue.\"\n     - **WAIT for user to respond with 'done'**\n     - When user responds with 'done':\n       - Continue to step 4\n\n4. **Commit and Push Changes**:\n   - Run `git commit -m \"chore: merge main\" --no-verify` to commit with custom merge commit message\n   - Display: \"📤 Pushing changes to remote...\"\n   - Run `git push`\n   - If push succeeds: Display \"🎉 SUCCESS: Main merged and pushed successfully!\"\n   - If push fails: Display \"⚠️ Merge completed but push failed. Please check remote permissions.\"\n\nUse the executePwsh tool for running commands to ensure cross-platform compatibility. Handle errors appropriately and provide clear feedback at each step. When conflicts occur, wait for the user to explicitly say 'done' before proceeding with staging and committing."
+  },
+  "workspaceFolderName": "monorepo",
+  "shortName": "merge-main"
+}

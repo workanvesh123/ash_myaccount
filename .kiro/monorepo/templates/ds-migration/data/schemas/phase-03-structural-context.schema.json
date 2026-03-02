@@ -1,0 +1,72 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Phase 03 - Component Relationship Discovery",
+    "description": "Schema for structural context analysis including conditional wrappers and parent containers",
+    "type": "object",
+    "required": ["component", "structuralContext", "metadata"],
+    "properties": {
+        "component": {
+            "type": "object",
+            "required": ["name", "selector", "package", "library"],
+            "properties": {
+                "name": { "type": "string", "minLength": 1 },
+                "selector": { "type": "string", "minLength": 1 },
+                "package": { "type": "string", "minLength": 1 },
+                "library": { "type": "string", "minLength": 1 }
+            }
+        },
+        "structuralContext": {
+            "type": "object",
+            "required": ["conditionalWrappers", "parentContainer"],
+            "properties": {
+                "conditionalWrappers": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["directive", "expression", "source", "code", "note"],
+                        "properties": {
+                            "directive": {
+                                "type": "string",
+                                "enum": ["@if", "@for", "@switch", "*ngIf", "*ngFor", "*ngSwitch", "ng-template"]
+                            },
+                            "expression": { "type": "string" },
+                            "source": { "type": "string", "minLength": 1 },
+                            "code": { "type": "string", "minLength": 1 },
+                            "note": { "type": "string" }
+                        }
+                    }
+                },
+                "parentContainer": {
+                    "type": "object",
+                    "required": ["element", "classes", "source", "code"],
+                    "properties": {
+                        "element": { "type": "string", "minLength": 1 },
+                        "classes": {
+                            "type": "array",
+                            "items": { "type": "string" }
+                        },
+                        "source": { "type": "string", "minLength": 1 },
+                        "code": { "type": "string", "minLength": 1 }
+                    }
+                }
+            }
+        },
+        "metadata": {
+            "type": "object",
+            "required": ["analysisDate", "analysisPhase", "toolsExecuted", "filesAnalyzed"],
+            "properties": {
+                "analysisDate": { "type": "string", "format": "date" },
+                "analysisPhase": { "type": "string", "const": "Phase 03 - Component Relationship Discovery" },
+                "toolsExecuted": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "minItems": 1
+                },
+                "filesAnalyzed": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                }
+            }
+        }
+    }
+}

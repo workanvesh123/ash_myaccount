@@ -1,0 +1,93 @@
+{
+  "mcpServers": {
+    "angular-toolkit-mcp": {
+      "command": "npx",
+      "args": [
+        "@push-based/angular-toolkit-mcp@latest",
+        "--workspaceRoot=absolut/path/to/monorepo",
+        "--ds.storybookDocsRoot=packages/design-system/storybook-host-app/src/components",
+        "--ds.deprecatedCssClassesPath=packages/reporting/design-system-reports/src/config/ds-components.js",
+        "--ds.uiRoot=packages/design-system/ui"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "report-violations",
+        "report-all-violations",
+        "get-ds-component-data",
+        "build_component_contract",
+        "list-ds-components",
+        "get-deprecated-css-classes"
+      ]
+    },
+    "Playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest"
+      ],
+      "env": {},
+      "disabled": false,
+      "autoApprove": []
+    },
+    "ESLint": {
+      "command": "npx",
+      "args": [
+        "@eslint/mcp@latest"
+      ],
+      "disabled": false,
+      "autoApprove": []
+    },
+    "gitlab-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@zereight/mcp-gitlab"
+      ],
+      "env": {
+        "GITLAB_PERSONAL_ACCESS_TOKEN": "YOUR_TOKEN",
+        "GITLAB_API_URL": "https://vie.git.bwinparty.com/",
+        "GITLAB_READ_ONLY_MODE": "false",
+        "GITLAB_PROJECT_ID": "502",
+        "USE_PIPELINE": "true",
+        "USE_GITLAB_WIKI": "true",
+        "HTTP_PROXY": "",
+        "HTTPS_PROXY": ""
+      },
+      "disabled": false,
+      "autoApprove": []
+    },
+    "mcp-atlassian": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "-e",
+        "JIRA_URL",
+        "-e",
+        "JIRA_PERSONAL_TOKEN",
+        "-e",
+        "JIRA_SSL_VERIFY",
+        "ghcr.io/sooperset/mcp-atlassian:latest"
+      ],
+      "env": {
+        "JIRA_URL": "https://jira-enterprise.corp.entaingroup.com",
+        "JIRA_PERSONAL_TOKEN": "YOUR_TOKEN",
+        "JIRA_SSL_VERIFY": "false"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "jira_get_issue"
+      ]
+    },
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}

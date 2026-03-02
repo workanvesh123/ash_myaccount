@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "name": "[General] Generate Code-Pushup report",
+  "description": "Triggers when user requests a code-pushup report. Helps select a specific project or suggests running the monorepo summary report.",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "The user has requested a code-pushup report. \n\nFirst, ask the user which project they want to generate a report for, or suggest running the monorepo summary report with the command:\n`yarn nx run design-system-reports:monorepo-summary-report`\n\nIf the user selects a specific project:\n1. Check the nx.json or project.json files to find the project\n2. Verify if the project has a code-pushup target configured\n3. If yes, run the appropriate nx command for that project (e.g., `yarn nx run [project-name]:code-pushup`)\n4. If no, warn the user that the project doesn't have a code-pushup target configured and suggest what the correct project name should be based on available projects in the .code-pushup directory\n\nAvailable projects can be found by listing directories in .code-pushup/ folder. Each directory represents a project that has code-pushup reports."
+  },
+  "workspaceFolderName": "monorepo",
+  "shortName": "code-pushup-report"
+}

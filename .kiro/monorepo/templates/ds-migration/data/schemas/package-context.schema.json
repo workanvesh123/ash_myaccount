@@ -1,0 +1,228 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Package Context Schema",
+    "description": "Schema for package context data extracted from e2e config files",
+    "type": "object",
+    "required": ["package", "primaryBrands", "brandConfiguration", "urlConstruction", "routingPatterns", "extractionSummary", "validation"],
+    "properties": {
+        "package": {
+            "type": "string",
+            "description": "Package name (e.g., 'bingo', 'casino', 'sports')"
+        },
+        "primaryBrands": {
+            "type": "array",
+            "description": "List of primary brands for this package",
+            "items": {
+                "type": "object",
+                "required": ["name", "key", "source", "code"],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Brand domain name (e.g., 'ladbrokes.com')"
+                    },
+                    "key": {
+                        "type": "string",
+                        "description": "Brand constant key in code (e.g., 'LADBROKES')"
+                    },
+                    "source": {
+                        "type": "string",
+                        "description": "File path and line number where brand is defined"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Exact code snippet from source file"
+                    }
+                }
+            }
+        },
+        "brandConfiguration": {
+            "type": "object",
+            "description": "Configuration details for each brand",
+            "patternProperties": {
+                "^[a-z0-9.-]+$": {
+                    "type": "object",
+                    "required": ["language", "subdomain", "productPath", "baseUrlPattern", "sources"],
+                    "properties": {
+                        "language": {
+                            "type": "string",
+                            "description": "Default language code (e.g., 'en')"
+                        },
+                        "subdomain": {
+                            "type": "string",
+                            "description": "Subdomain used in URLs (e.g., 'www')"
+                        },
+                        "productPath": {
+                            "type": "string",
+                            "description": "Product path segment in URL (e.g., 'bingo', 'casino')"
+                        },
+                        "baseUrlPattern": {
+                            "type": "string",
+                            "description": "Example base URL for this brand"
+                        },
+                        "sources": {
+                            "type": "object",
+                            "description": "Source references for each configuration value",
+                            "required": ["language", "subdomain", "productPath"],
+                            "properties": {
+                                "language": {
+                                    "$ref": "#/definitions/sourceReference"
+                                },
+                                "subdomain": {
+                                    "$ref": "#/definitions/sourceReference"
+                                },
+                                "productPath": {
+                                    "$ref": "#/definitions/sourceReference"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "urlConstruction": {
+            "type": "object",
+            "required": ["format", "environmentPrefixLogic", "exampleUrls"],
+            "properties": {
+                "format": {
+                    "type": "string",
+                    "description": "URL format template with placeholders"
+                },
+                "environmentPrefixLogic": {
+                    "$ref": "#/definitions/sourceReference"
+                },
+                "exampleUrls": {
+                    "type": "array",
+                    "description": "Example URLs demonstrating the format",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "authentication": {
+            "type": "object",
+            "properties": {
+                "required": {
+                    "type": "string",
+                    "description": "Authentication requirement status"
+                },
+                "source": {
+                    "type": "string",
+                    "description": "Source file reference or 'Not found'"
+                },
+                "note": {
+                    "type": "string",
+                    "description": "Additional notes about authentication"
+                }
+            }
+        },
+        "routingPatterns": {
+            "type": "object",
+            "required": ["baseRoute", "source", "primaryRoutes"],
+            "properties": {
+                "baseRoute": {
+                    "type": "string",
+                    "description": "Base route pattern for the package"
+                },
+                "source": {
+                    "type": "string",
+                    "description": "Source file reference for routing information"
+                },
+                "primaryRoutes": {
+                    "type": "array",
+                    "description": "List of primary routes in the package",
+                    "items": {
+                        "type": "object",
+                        "required": ["path", "description"],
+                        "properties": {
+                            "path": {
+                                "type": "string",
+                                "description": "Route path"
+                            },
+                            "description": {
+                                "type": "string",
+                                "description": "Route description"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "extractionSummary": {
+            "type": "object",
+            "required": ["primarySource", "fallbackUsed"],
+            "properties": {
+                "primarySource": {
+                    "type": "string",
+                    "description": "Primary source file for extraction"
+                },
+                "secondarySource": {
+                    "type": "string",
+                    "description": "Secondary source file (optional)"
+                },
+                "fallbackUsed": {
+                    "type": "boolean",
+                    "description": "Whether fallback values were used"
+                },
+                "note": {
+                    "type": "string",
+                    "description": "Additional notes about extraction"
+                }
+            }
+        },
+        "validation": {
+            "type": "object",
+            "required": [
+                "allBrandsHaveFileReferences",
+                "allLanguageCodesHaveFileReferences",
+                "allExtractedValuesCiteExactLineNumbers",
+                "fallbackValuesExplicitlyMarked",
+                "noInferredOrAssumedValuesWithoutCodeProof"
+            ],
+            "properties": {
+                "allBrandsHaveFileReferences": {
+                    "type": "boolean"
+                },
+                "allLanguageCodesHaveFileReferences": {
+                    "type": "boolean"
+                },
+                "allExtractedValuesCiteExactLineNumbers": {
+                    "type": "boolean"
+                },
+                "fallbackValuesExplicitlyMarked": {
+                    "type": "boolean"
+                },
+                "noInferredOrAssumedValuesWithoutCodeProof": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "notes": {
+            "type": "array",
+            "description": "Additional notes about the package context",
+            "items": {
+                "type": "string"
+            }
+        }
+    },
+    "definitions": {
+        "sourceReference": {
+            "type": "object",
+            "required": ["file", "code", "extraction"],
+            "properties": {
+                "file": {
+                    "type": "string",
+                    "description": "File path and line number(s)"
+                },
+                "code": {
+                    "type": "string",
+                    "description": "Exact code snippet from source"
+                },
+                "extraction": {
+                    "type": "string",
+                    "description": "Explanation of how value was extracted"
+                }
+            }
+        }
+    }
+}

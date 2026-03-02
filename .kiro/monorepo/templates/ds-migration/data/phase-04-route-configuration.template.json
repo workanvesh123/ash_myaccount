@@ -1,0 +1,25 @@
+{
+    "component": {
+        "name": "",
+        "selector": "",
+        "package": "",
+        "library": ""
+    },
+    "routeConfiguration": {
+        "routePath": "",
+        "routeSource": "",
+        "routeCode": "",
+        "featureFlags": [],
+        "guards": [],
+        "dynamicParams": [],
+        "allowAnonymous": false,
+        "allowAnonymousSource": "",
+        "allowAnonymousCode": ""
+    },
+    "metadata": {
+        "analysisDate": "",
+        "analysisPhase": "Phase 04 - Route & Access Configuration",
+        "toolsExecuted": [],
+        "filesAnalyzed": []
+    }
+}

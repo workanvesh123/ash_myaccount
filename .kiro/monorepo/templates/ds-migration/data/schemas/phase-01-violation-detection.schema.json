@@ -1,0 +1,237 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Phase 01 - Violation Detection & Analysis",
+    "description": "Schema for MCP violation detection, HTML analysis, bindings extraction, and DS component selection",
+    "type": "object",
+    "required": ["component", "violationsFound", "violationZoneAnalysis", "metadata"],
+    "properties": {
+        "component": {
+            "type": "object",
+            "required": ["name", "selector", "package", "library", "root", "dsComponents"],
+            "properties": {
+                "name": { "type": "string", "minLength": 1 },
+                "selector": { "type": "string", "minLength": 1 },
+                "package": { "type": "string", "minLength": 1 },
+                "library": { "type": "string", "minLength": 1 },
+                "root": { "type": "string", "minLength": 1 },
+                "dsComponents": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "minItems": 1
+                }
+            }
+        },
+        "violationsFound": {
+            "type": "object",
+            "required": ["source", "executedOn", "totalViolations", "violations"],
+            "properties": {
+                "source": { "type": "string", "const": "mcp_angular_toolkit_mcp_report_all_violations" },
+                "executedOn": { "type": "string", "minLength": 1 },
+                "totalViolations": { "type": "integer", "minimum": 0 },
+                "violations": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["file", "deprecatedPattern", "dsTarget"],
+                        "properties": {
+                            "file": { "type": "string", "minLength": 1 },
+                            "deprecatedPattern": { "type": "string", "minLength": 1 },
+                            "dsTarget": { "type": "string", "minLength": 1 }
+                        }
+                    }
+                }
+            }
+        },
+        "violationZoneAnalysis": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "required": [
+                    "violationId",
+                    "location",
+                    "htmlSnippet",
+                    "bindings",
+                    "conditionalWrappers",
+                    "parentContext",
+                    "dataSources",
+                    "methodBehavior",
+                    "dsComponentSelection"
+                ],
+                "properties": {
+                    "violationId": { "type": "string", "pattern": "^V[0-9]+$" },
+                    "location": {
+                        "type": "object",
+                        "required": ["file"],
+                        "properties": {
+                            "file": { "type": "string", "minLength": 1 }
+                        }
+                    },
+                    "htmlSnippet": {
+                        "type": "object",
+                        "required": ["code", "context"],
+                        "properties": {
+                            "code": { "type": "string", "minLength": 1 },
+                            "context": { "type": "string", "minLength": 1 }
+                        }
+                    },
+                    "bindings": {
+                        "type": "object",
+                        "required": ["properties", "events", "attributes", "twoWay", "textInterpolation"],
+                        "properties": {
+                            "properties": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "required": ["binding", "description"],
+                                    "properties": {
+                                        "binding": { "type": "string" },
+                                        "description": { "type": "string" }
+                                    }
+                                }
+                            },
+                            "events": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "required": ["binding", "handler", "description"],
+                                    "properties": {
+                                        "binding": { "type": "string" },
+                                        "handler": { "type": "string" },
+                                        "description": { "type": "string" }
+                                    }
+                                }
+                            },
+                            "attributes": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "required": ["binding", "description"],
+                                    "properties": {
+                                        "binding": { "type": "string" },
+                                        "description": { "type": "string" }
+                                    }
+                                }
+                            },
+                            "twoWay": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "required": ["binding", "description"],
+                                    "properties": {
+                                        "binding": { "type": "string" },
+                                        "description": { "type": "string" }
+                                    }
+                                }
+                            },
+                            "textInterpolation": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "required": ["binding", "description"],
+                                    "properties": {
+                                        "binding": { "type": "string" },
+                                        "description": { "type": "string" }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "conditionalWrappers": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": ["directive", "expression", "description", "source"],
+                            "properties": {
+                                "directive": { "type": "string", "enum": ["@if", "@for", "@switch", "*ngIf", "*ngFor", "*ngSwitch"] },
+                                "expression": { "type": "string" },
+                                "description": { "type": "string" },
+                                "source": { "type": "string" }
+                            }
+                        }
+                    },
+                    "parentContext": {
+                        "type": "object",
+                        "required": ["container", "background", "layout", "positioning"],
+                        "properties": {
+                            "container": { "type": "string" },
+                            "background": { "type": "string", "enum": ["light", "dark", "transparent", "mixed"] },
+                            "layout": { "type": "string" },
+                            "positioning": { "type": "string" }
+                        }
+                    },
+                    "dataSources": {
+                        "type": "object",
+                        "patternProperties": {
+                            "^[a-zA-Z_][a-zA-Z0-9_]*$": {
+                                "type": "object",
+                                "required": ["type", "source", "location", "code", "description"],
+                                "properties": {
+                                    "type": { "type": "string" },
+                                    "source": { "type": "string" },
+                                    "location": { "type": "string" },
+                                    "code": { "type": "string" },
+                                    "description": { "type": "string" }
+                                }
+                            }
+                        }
+                    },
+                    "methodBehavior": {
+                        "type": "object",
+                        "patternProperties": {
+                            "^[a-zA-Z_][a-zA-Z0-9_]*$": {
+                                "type": "object",
+                                "required": ["location", "userVisibleBehavior", "implementation"],
+                                "properties": {
+                                    "location": { "type": "string" },
+                                    "userVisibleBehavior": {
+                                        "type": "array",
+                                        "items": { "type": "string" },
+                                        "minItems": 1
+                                    },
+                                    "implementation": { "type": "string" }
+                                }
+                            }
+                        }
+                    },
+                    "dsComponentSelection": {
+                        "type": "object",
+                        "required": ["selectedComponent", "rationale", "userVisibleBehavior", "semanticCorrection"],
+                        "properties": {
+                            "selectedComponent": { "type": "string", "minLength": 1 },
+                            "rationale": { "type": "string", "minLength": 1 },
+                            "userVisibleBehavior": {
+                                "type": "array",
+                                "items": { "type": "string" },
+                                "minItems": 1
+                            },
+                            "semanticCorrection": { "type": "string" }
+                        }
+                    }
+                }
+            }
+        },
+        "metadata": {
+            "type": "object",
+            "required": ["analysisDate", "analysisPhase", "steeringFilesReferenced", "toolsExecuted", "filesAnalyzed"],
+            "properties": {
+                "analysisDate": { "type": "string", "format": "date" },
+                "analysisPhase": { "type": "string", "const": "Phase 01 - Violation Detection & Analysis" },
+                "steeringFilesReferenced": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "minItems": 1
+                },
+                "toolsExecuted": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "minItems": 1
+                },
+                "filesAnalyzed": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "component": {
+        "name": "",
+        "selector": "",
+        "package": "",
+        "library": "",
+        "root": "",
+        "dsComponents": []
+    },
+    "violationsFound": {
+        "source": "mcp_angular_toolkit_mcp_report_all_violations",
+        "executedOn": "",
+        "totalViolations": 0,
+        "violations": []
+    },
+    "violationZoneAnalysis": [],
+    "metadata": {
+        "analysisDate": "",
+        "analysisPhase": "Phase 01 - Violation Detection & Analysis",
+        "steeringFilesReferenced": [],
+        "toolsExecuted": [],
+        "filesAnalyzed": []
+    }
+}

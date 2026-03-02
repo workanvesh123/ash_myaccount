@@ -1,0 +1,90 @@
+I have an existing large monorepo with a working CI/CD pipeline that I want to analyze and adapt for my new project.
+
+CONTEXT ABOUT MY NEW PROJECT:
+- Repository: https://github.com/workanvesh123/ash_myaccount
+- Structure: Monorepo with backend (.NET 9) and frontend (Angular 20)
+- Current location: C:\monorepos\newmonorepomyaccount\ash_myaccount
+- Backend: backend/MyAccount.Api/ (.NET 9 Minimal APIs)
+- Frontend: frontend/ (Angular 20 with SSR, Nx workspace)
+- Current CI/CD: Basic GitHub Actions workflows already created in .github/workflows/
+
+EXISTING MONOREPO TO ANALYZE:
+- Location: [PASTE PATH HERE - e.g., C:\monorepos\existing-large-monorepo]
+- CI/CD files location: [PASTE LOCATION - e.g., .github/workflows/]
+
+WHAT I NEED YOU TO DO:
+
+1. ANALYZE the existing monorepo's CI/CD strategy:
+   - Read all pipeline configuration files
+   - Identify the pipeline structure (stages, jobs, dependencies)
+   - Note deployment strategies (environments, approval gates, rollback)
+   - Document build optimization techniques (caching, parallelization, matrix builds)
+   - Identify monorepo-specific patterns (affected detection, selective builds)
+   - Note security practices (secret management, scanning)
+   - Document testing strategies
+   - Identify deployment targets
+
+2. COMPARE with my current setup:
+   - Review my existing workflows in .github/workflows/
+   - Identify gaps and improvements
+   - Note what's already implemented vs what's missing
+
+3. ADAPT the best practices to my project:
+   - Modify pipeline strategies to fit my .NET 9 + Angular 20 stack
+   - Adapt monorepo patterns (Nx, Turborepo, Lerna, etc.)
+   - Implement affected/changed file detection for selective builds
+   - Add appropriate caching strategies
+   - Implement proper environment management (dev, staging, prod)
+   - Add security scanning if present in original
+   - Adapt deployment strategies
+
+4. PROVIDE specific recommendations:
+   - Which patterns to adopt immediately
+   - Which patterns to adapt/modify
+   - Which patterns to skip (and why)
+   - Step-by-step implementation plan
+   - Updated workflow files with inline comments
+
+5. CREATE updated workflow files that:
+   - Maintain compatibility with my current structure
+   - Implement best practices from the existing monorepo
+   - Are optimized for .NET 9 and Angular 20
+   - Include proper error handling and notifications
+   - Have clear documentation
+
+SPECIFIC AREAS TO FOCUS ON:
+- Monorepo change detection (only build what changed)
+- Caching strategies (dependencies, build artifacts)
+- Parallel job execution
+- Environment-specific deployments
+- Approval workflows for production
+- Rollback strategies
+- Security scanning (SAST, dependency scanning)
+- Performance testing
+- Deployment notifications
+- Infrastructure as Code (if applicable)
+
+OUTPUT FORMAT:
+1. Analysis summary of existing pipeline
+2. Comparison with my current setup
+3. Recommended adaptations with rationale
+4. Updated workflow files (complete, ready to use)
+5. Implementation checklist with priorities
+6. Documentation updates needed
+
+CONSTRAINTS:
+- Must work with GitHub Actions (my current platform)
+- Must support .NET 9 and Angular 20
+- Should be production-ready
+- Should follow security best practices
+- Should be maintainable and well-documented
+
+FILES FROM EXISTING MONOREPO (attach these):
+[List the files you're attaching, for example:]
+- .github/workflows/ci.yml
+- .github/workflows/deploy.yml
+- nx.json (if using Nx)
+- package.json
+- Any deployment scripts
+
+Please analyze the existing monorepo's CI/CD pipeline and provide adapted workflows for my project.

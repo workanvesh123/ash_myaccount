@@ -1,0 +1,77 @@
+{
+    "package": "{PACKAGE_NAME}",
+    "primaryBrands": [
+        {
+            "name": "{BRAND_DOMAIN}",
+            "key": "{BRAND_CONSTANT_KEY}",
+            "source": "{FILE_PATH}:{LINE_NUMBER}",
+            "code": "{EXACT_CODE_SNIPPET}"
+        }
+    ],
+    "brandConfiguration": {
+        "{BRAND_DOMAIN}": {
+            "language": "{LANGUAGE_CODE}",
+            "subdomain": "{SUBDOMAIN}",
+            "productPath": "{PRODUCT_PATH}",
+            "baseUrlPattern": "https://{ENV}.{SUBDOMAIN}.{BRAND_DOMAIN}/{LANGUAGE}/{PRODUCT_PATH}",
+            "sources": {
+                "language": {
+                    "file": "{FILE_PATH}:{LINE_NUMBER}",
+                    "code": "{EXACT_CODE_SNIPPET}",
+                    "extraction": "{EXTRACTION_METHOD_DESCRIPTION}"
+                },
+                "subdomain": {
+                    "file": "{FILE_PATH}:{LINE_NUMBER}",
+                    "code": "{EXACT_CODE_SNIPPET}",
+                    "extraction": "{EXTRACTION_METHOD_DESCRIPTION}"
+                },
+                "productPath": {
+                    "file": "{FILE_PATH}:{LINE_NUMBER}",
+                    "code": "{EXACT_CODE_SNIPPET}",
+                    "extraction": "{EXTRACTION_METHOD_DESCRIPTION}"
+                }
+            }
+        }
+    },
+    "urlConstruction": {
+        "format": "https://{ENV}.{subdomain}.{brand}/{lang}/{product_path}/{component_path}",
+        "environmentPrefixLogic": {
+            "file": "{FILE_PATH}:{LINE_NUMBER_RANGE}",
+            "code": "{EXACT_CODE_SNIPPET}",
+            "extraction": "{EXTRACTION_METHOD_DESCRIPTION}"
+        },
+        "exampleUrls": [
+            "https://{ENV}.{SUBDOMAIN}.{BRAND}/{LANG}/{PRODUCT_PATH}/{ROUTE_1}",
+            "https://{ENV}.{SUBDOMAIN}.{BRAND}/{LANG}/{PRODUCT_PATH}/{ROUTE_2}"
+        ]
+    },
+    "authentication": {
+        "required": "{YES|NO|Not specified in config}",
+        "source": "{FILE_PATH or 'Not found in config-constants.ts'}",
+        "note": "{ADDITIONAL_NOTES}"
+    },
+    "routingPatterns": {
+        "baseRoute": "/{culture}/{product}/...",
+        "source": "{FILE_PATH or steering file reference}",
+        "primaryRoutes": [
+            {
+                "path": "/{ROUTE_PATH}",
+                "description": "{ROUTE_DESCRIPTION}"
+            }
+        ]
+    },
+    "extractionSummary": {
+        "primarySource": "{PRIMARY_SOURCE_FILE_AND_CONSTANT}",
+        "secondarySource": "{SECONDARY_SOURCE_FILE_AND_FUNCTION}",
+        "fallbackUsed": false,
+        "note": "{EXTRACTION_NOTES}"
+    },
+    "validation": {
+        "allBrandsHaveFileReferences": true,
+        "allLanguageCodesHaveFileReferences": true,
+        "allExtractedValuesCiteExactLineNumbers": true,
+        "fallbackValuesExplicitlyMarked": true,
+        "noInferredOrAssumedValuesWithoutCodeProof": true
+    },
+    "notes": ["{NOTE_1}", "{NOTE_2}"]
+}

@@ -1,0 +1,39 @@
+{
+    "component": {
+        "name": "",
+        "selector": "",
+        "package": "",
+        "library": ""
+    },
+    "discovery": {
+        "componentLocation": "",
+        "searchAttempts": {
+            "routes": {
+                "searched": false,
+                "query": "",
+                "includePattern": "",
+                "result": ""
+            },
+            "templates": {
+                "searched": false,
+                "query": "",
+                "includePattern": "",
+                "result": ""
+            }
+        },
+        "parentComponent": {
+            "name": "",
+            "selector": "",
+            "source": "",
+            "code": ""
+        },
+        "accessMethod": "",
+        "componentChain": []
+    },
+    "metadata": {
+        "analysisDate": "",
+        "analysisPhase": "Phase 02 - Component Location Discovery",
+        "toolsExecuted": [],
+        "filesAnalyzed": []
+    }
+}

@@ -1,0 +1,216 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Phase 05 - Viability, Gap Analysis & Risk Assessment",
+    "description": "Schema for boundary detection, feature mapping, risk assessment, and constraint filtering",
+    "type": "object",
+    "required": [
+        "component",
+        "sharedContext",
+        "viabilityAssessment",
+        "featureMapping",
+        "riskAssessment",
+        "criticalConstraints",
+        "successCriteria",
+        "architectureSummary",
+        "metadata"
+    ],
+    "properties": {
+        "component": {
+            "type": "object",
+            "required": ["name", "selector", "package", "library"],
+            "properties": {
+                "name": { "type": "string", "minLength": 1 },
+                "selector": { "type": "string", "minLength": 1 },
+                "package": { "type": "string", "minLength": 1 },
+                "library": { "type": "string", "minLength": 1 }
+            }
+        },
+        "sharedContext": {
+            "type": "object",
+            "required": ["crossZoneDependencies", "sharedProperties", "sharedMethods", "lifecycleHooks", "reasoning"],
+            "properties": {
+                "crossZoneDependencies": { "type": "boolean" },
+                "sharedProperties": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                },
+                "sharedMethods": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                },
+                "lifecycleHooks": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                },
+                "reasoning": { "type": "string", "minLength": 1 }
+            }
+        },
+        "viabilityAssessment": {
+            "type": "object",
+            "required": ["feasible", "boundaryViolations", "architecturalFitIndicators", "decision", "reasoning"],
+            "properties": {
+                "feasible": { "type": "boolean" },
+                "boundaryViolations": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                },
+                "architecturalFitIndicators": {
+                    "type": "object",
+                    "required": [
+                        "runtimeConfigurableStyling",
+                        "complexStateMachine",
+                        "multiBrandThemingWithExternalOverrides",
+                        "noClearDsEquivalent",
+                        "deviceSpecificImplementations",
+                        "dualRoleComponent",
+                        "criticalUserFlowWithZeroTolerance"
+                    ],
+                    "properties": {
+                        "runtimeConfigurableStyling": { "type": "boolean" },
+                        "complexStateMachine": { "type": "boolean" },
+                        "multiBrandThemingWithExternalOverrides": { "type": "boolean" },
+                        "noClearDsEquivalent": { "type": "boolean" },
+                        "deviceSpecificImplementations": { "type": "boolean" },
+                        "dualRoleComponent": { "type": "boolean" },
+                        "criticalUserFlowWithZeroTolerance": { "type": "boolean" }
+                    }
+                },
+                "decision": { "type": "string", "enum": ["Proceed with DS migration", "Do not migrate", "Requires further analysis"] },
+                "reasoning": { "type": "string", "minLength": 1 }
+            }
+        },
+        "featureMapping": {
+            "type": "object",
+            "required": ["requiredDsFeatures", "gaps", "workarounds", "reasoning"],
+            "properties": {
+                "requiredDsFeatures": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "minItems": 1
+                },
+                "gaps": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                },
+                "workarounds": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                },
+                "reasoning": { "type": "string", "minLength": 1 }
+            }
+        },
+        "riskAssessment": {
+            "type": "object",
+            "required": ["level", "justification", "riskIndicators", "mitigationStrategies", "testingRequirements"],
+            "properties": {
+                "level": { "type": "string", "enum": ["Low", "Medium", "High"] },
+                "justification": { "type": "string", "minLength": 1 },
+                "riskIndicators": {
+                    "type": "object",
+                    "required": ["lowRiskIndicators", "moderateRiskIndicators", "highRiskIndicators"],
+                    "properties": {
+                        "lowRiskIndicators": {
+                            "type": "array",
+                            "items": { "type": "string" }
+                        },
+                        "moderateRiskIndicators": {
+                            "type": "array",
+                            "items": { "type": "string" }
+                        },
+                        "highRiskIndicators": {
+                            "type": "array",
+                            "items": { "type": "string" }
+                        }
+                    }
+                },
+                "mitigationStrategies": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "minItems": 1
+                },
+                "testingRequirements": {
+                    "type": "object",
+                    "required": ["scope", "dimensions", "criticalPaths"],
+                    "properties": {
+                        "scope": { "type": "string", "minLength": 1 },
+                        "dimensions": {
+                            "type": "array",
+                            "items": { "type": "string" },
+                            "minItems": 1
+                        },
+                        "criticalPaths": {
+                            "type": "array",
+                            "items": { "type": "string" },
+                            "minItems": 1
+                        }
+                    }
+                }
+            }
+        },
+        "criticalConstraints": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 10,
+            "items": {
+                "type": "object",
+                "required": ["id", "constraint", "category", "impact", "validation"],
+                "properties": {
+                    "id": { "type": "string", "pattern": "^C[0-9]+$" },
+                    "constraint": { "type": "string", "minLength": 1 },
+                    "category": { "type": "string", "minLength": 1 },
+                    "impact": { "type": "string", "minLength": 1 },
+                    "validation": { "type": "string", "minLength": 1 }
+                }
+            }
+        },
+        "successCriteria": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "required": ["id", "criterion", "testable", "validationMethod"],
+                "properties": {
+                    "id": { "type": "string", "pattern": "^SC[0-9]+$" },
+                    "criterion": { "type": "string", "minLength": 1 },
+                    "testable": { "type": "boolean" },
+                    "validationMethod": { "type": "string", "minLength": 1 }
+                }
+            }
+        },
+        "architectureSummary": {
+            "type": "object",
+            "required": ["componentRole", "integrationPoints", "migrationApproach", "preservedBehavior"],
+            "properties": {
+                "componentRole": { "type": "string", "minLength": 1 },
+                "integrationPoints": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "minItems": 1
+                },
+                "migrationApproach": { "type": "string", "minLength": 1 },
+                "preservedBehavior": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "minItems": 1
+                }
+            }
+        },
+        "metadata": {
+            "type": "object",
+            "required": ["analysisDate", "analysisPhase", "steeringFilesReferenced", "filesAnalyzed"],
+            "properties": {
+                "analysisDate": { "type": "string", "format": "date" },
+                "analysisPhase": { "type": "string", "const": "Phase 05 - Viability, Gap Analysis & Risk Assessment" },
+                "steeringFilesReferenced": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "minItems": 1
+                },
+                "filesAnalyzed": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "component": {
+        "name": "",
+        "selector": "",
+        "package": "",
+        "library": ""
+    },
+    "structuralContext": {
+        "conditionalWrappers": [],
+        "parentContainer": {
+            "element": "",
+            "classes": [],
+            "source": "",
+            "code": ""
+        }
+    },
+    "metadata": {
+        "analysisDate": "",
+        "analysisPhase": "Phase 03 - Component Relationship Discovery",
+        "toolsExecuted": [],
+        "filesAnalyzed": []
+    }
+}
