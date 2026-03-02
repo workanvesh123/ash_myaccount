@@ -145,10 +145,29 @@ See [COMPLETE_TESTING_GUIDE.md](COMPLETE_TESTING_GUIDE.md) for detailed testing 
 
 ## 📚 Documentation
 
-- [COMPLETE_TESTING_GUIDE.md](COMPLETE_TESTING_GUIDE.md) - Comprehensive testing guide
-- [PHASE_8_ALL_FEATURES_COMPLETE.md](PHASE_8_ALL_FEATURES_COMPLETE.md) - Latest features documentation
-- [FUTURE_FEATURES.md](FUTURE_FEATURES.md) - 50+ feature ideas for expansion
-- [API_DOCUMENTATION.md](backend/API_DOCUMENTATION.md) - API endpoint documentation
+### Getting Started
+- [NEXT_STEPS.md](NEXT_STEPS.md) - Current roadmap and next features
+- [docs/README.md](docs/README.md) - Documentation index
+
+### Gaming Platform
+- [docs/games/GAMING_PLATFORM_PLAN.md](docs/games/GAMING_PLATFORM_PLAN.md) - Gaming platform vision
+- [docs/games/2048_COMPLETE.md](docs/games/2048_COMPLETE.md) - 2048 game documentation
+- [docs/games/SUDOKU_COMPLETE.md](docs/games/SUDOKU_COMPLETE.md) - Sudoku game documentation
+- [docs/GAMING_QUICK_START.md](docs/GAMING_QUICK_START.md) - Quick start guide
+
+### Testing
+- [docs/testing/COMPLETE_TESTING_GUIDE.md](docs/testing/COMPLETE_TESTING_GUIDE.md) - Comprehensive testing guide
+- [docs/testing/QUICK_TEST_GUIDE.md](docs/testing/QUICK_TEST_GUIDE.md) - Quick testing reference
+- [docs/testing/RUN_TESTS.md](docs/testing/RUN_TESTS.md) - How to run tests
+
+### Project Information
+- [docs/PROJECT_SUMMARY.md](docs/PROJECT_SUMMARY.md) - Complete project overview
+- [docs/FUTURE_FEATURES.md](docs/FUTURE_FEATURES.md) - 50+ feature ideas
+- [docs/STARTUP_IDEAS.md](docs/STARTUP_IDEAS.md) - Business ideas and monetization
+- [backend/API_DOCUMENTATION.md](backend/API_DOCUMENTATION.md) - API endpoint documentation
+
+### Phase Documentation
+- [docs/phases/](docs/phases/) - All phase completion documents
 
 ## 🔗 API Endpoints
 
