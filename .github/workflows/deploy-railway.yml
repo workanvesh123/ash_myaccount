@@ -1,0 +1,36 @@
+name: Deploy to Railway
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to Railway
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install Railway CLI
+      run: npm install -g @railway/cli
+      
+    - name: Deploy Backend
+      run: railway up --service backend
+      env:
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      working-directory: ./backend
+      
+    - name: Deploy Frontend
+      run: railway up --service frontend
+      env:
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      working-directory: ./frontend
+      
+    - name: Deployment Summary
+      run: |
+        echo "🚀 Deployment to Railway completed!"
+        echo "Backend: https://your-backend.railway.app"
+        echo "Frontend: https://your-frontend.railway.app"
